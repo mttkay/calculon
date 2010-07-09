@@ -1,30 +1,30 @@
 package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertTrue;
-
-import com.github.calculon.CalculonStoryTest;
-
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 
-public class ActionAssertion extends AssertionBase {
+import com.github.calculon.CalculonStoryTest;
+
+public class ActionAssertion<ActivityT extends Activity> extends AssertionBase<ActivityT> {
 
     private Runnable action;
 
     private boolean runOnMainThread;
 
-    public ActionAssertion(CalculonStoryTest testCase, Activity activity, Instrumentation instrumentation, Runnable action,
+    public ActionAssertion(CalculonStoryTest<ActivityT> testCase, Activity activity,
+            Instrumentation instrumentation, Runnable action,
             boolean runOnMainThread) {
         super(testCase, activity, instrumentation);
         this.action = action;
         this.runOnMainThread = runOnMainThread;
     }
 
-    public ViewAssertion implies(int otherViewId) {
+    public ViewAssertion<ActivityT> implies(int otherViewId) {
         performPendingAction();
-        return new ViewAssertion(testCase, activity, instrumentation, activity
+        return new ViewAssertion<ActivityT>(testCase, activity, instrumentation, activity
             .findViewById(otherViewId));
     }
 

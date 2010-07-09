@@ -8,21 +8,20 @@ import android.app.Instrumentation;
 import com.github.calculon.CalculonStoryTest;
 import com.github.calculon.predicate.Predicate;
 
-public abstract class UserInputAssertionBase<T> extends AssertionBase {
+public abstract class UserInputAssertionBase<TargetT, ActivityT extends Activity> extends
+        AssertionBase<ActivityT> {
 
-    protected T target;
+    protected TargetT target;
 
-    public UserInputAssertionBase(CalculonStoryTest testCase, Activity activity, Instrumentation instrumentation) {
+    public UserInputAssertionBase(CalculonStoryTest<ActivityT> testCase, Activity activity,
+            Instrumentation instrumentation) {
         super(testCase, activity, instrumentation);
     }
 
-    public ActionAssertion keyPress(int... keyCodes) {
-        final int[] codes = keyCodes;
-        return new ActionAssertion(testCase, activity, instrumentation, new Runnable() {
+    public ActionAssertion<ActivityT> keyPress(final int... keyCodes) {
+        return new ActionAssertion<ActivityT>(testCase, activity, instrumentation, new Runnable() {
             public void run() {
-            	for (int code : codes) {
-            		UserInputAssertionBase.this.testCase.sendKeys(code);
-            	}
+                UserInputAssertionBase.this.testCase.sendKeys(keyCodes);
             }
         }, false);
     }

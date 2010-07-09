@@ -8,9 +8,10 @@ import android.view.View;
 import com.github.calculon.assertion.ActivityAssertion;
 import com.github.calculon.assertion.ViewAssertion;
 
-public abstract class CalculonStoryTest<T extends Activity> extends ActivityInstrumentationTestCase2<T> {
+public abstract class CalculonStoryTest<ActivityT extends Activity> extends
+        ActivityInstrumentationTestCase2<ActivityT> {
 
-    public CalculonStoryTest(String pkg, Class<T> activityClass) {
+    public CalculonStoryTest(String pkg, Class<ActivityT> activityClass) {
         super(pkg, activityClass);
     }
     
@@ -28,19 +29,19 @@ public abstract class CalculonStoryTest<T extends Activity> extends ActivityInst
     	super.tearDown();
     }
     
-    protected ActivityAssertion assertThat() {
-        return new ActivityAssertion(this, getActivity(), getInstrumentation());
+    protected ActivityAssertion<ActivityT> assertThat() {
+        return new ActivityAssertion<ActivityT>(this, getActivity(), getInstrumentation());
     }
 
-    protected ActivityAssertion assertThat(Activity activity) {
-        return new ActivityAssertion(this, activity, getInstrumentation());
+    protected ActivityAssertion<ActivityT> assertThat(Activity activity) {
+        return new ActivityAssertion<ActivityT>(this, activity, getInstrumentation());
     }
 
-    protected ViewAssertion assertThat(View view) {
-        return new ViewAssertion(this, getActivity(), getInstrumentation(), view);
+    protected ViewAssertion<ActivityT> assertThat(View view) {
+        return new ViewAssertion<ActivityT>(this, getActivity(), getInstrumentation(), view);
     }
 
-    protected ViewAssertion assertThat(int viewId) {
+    protected ViewAssertion<ActivityT> assertThat(int viewId) {
         View view = getActivity().findViewById(viewId);
         return assertThat(view);
     }

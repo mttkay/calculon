@@ -7,9 +7,11 @@ import android.app.Instrumentation;
 
 import com.github.calculon.CalculonStoryTest;
 
-public class ActivityAssertion extends UserInputAssertionBase<Activity> {
+public class ActivityAssertion<ActivityT extends Activity> extends
+        UserInputAssertionBase<Activity, ActivityT> {
 
-    public ActivityAssertion(CalculonStoryTest testCase, Activity activity, Instrumentation instrumentation) {
+    public ActivityAssertion(CalculonStoryTest<ActivityT> testCase, Activity activity,
+            Instrumentation instrumentation) {
         super(testCase, activity, instrumentation);
         this.target = activity;
     }
