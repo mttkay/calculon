@@ -1,28 +1,43 @@
 package com.github.calculon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 
 import com.github.calculon.assertion.ActivityAssertion;
 import com.github.calculon.assertion.ViewAssertion;
 
-public class FunctionalTest<T extends Activity> extends ActivityInstrumentationTestCase2<T> {
+public abstract class CalculonStoryTest<T extends Activity> extends ActivityInstrumentationTestCase2<T> {
 
-    public FunctionalTest(String pkg, Class<T> activityClass) {
+    public CalculonStoryTest(String pkg, Class<T> activityClass) {
         super(pkg, activityClass);
     }
+    
+    @Override
+    protected void setUp() throws Exception {
+    	Intent intent = new Intent(Intent.ACTION_MAIN);
+    	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		setActivityIntent(intent);
+    	super.setUp();
+    }
 
+    @Override
+    protected void tearDown() throws Exception {
+    	super.tearDown();
+    }
+    
     protected ActivityAssertion assertThat() {
-        return new ActivityAssertion(getActivity(), getInstrumentation());
+        return new ActivityAssertion(this, getActivity(), getInstrumentation());
     }
 
     protected ActivityAssertion assertThat(Activity activity) {
-        return new ActivityAssertion(activity, getInstrumentation());
+        return new ActivityAssertion(this, activity, getInstrumentation());
     }
 
     protected ViewAssertion assertThat(View view) {
-        return new ViewAssertion(getActivity(), getInstrumentation(), view);
+        return new ViewAssertion(this, getActivity(), getInstrumentation(), view);
     }
 
     protected ViewAssertion assertThat(int viewId) {

@@ -2,9 +2,9 @@
 
 ## "Calculon never does two takes!"
 
-Calculon is a testing DSL for Google Android. It allows you to write functional tests using cool stuff like this:
+Calculon is a testing DSL for Google Android. It allows you to write activity tests and user story tests using cool stuff like this:
 
-    public class FooTest extends FunctionalTest<FooActivity> {
+    public class FooTest extends CalculonStoryTest<FooActivity> {
 
         public FooTest() {
             super("com.example", FooActivity.class);

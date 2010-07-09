@@ -1,6 +1,9 @@
 package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertTrue;
+
+import com.github.calculon.CalculonStoryTest;
+
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
@@ -12,26 +15,26 @@ public class ActionAssertion extends AssertionBase {
 
     private boolean runOnMainThread;
 
-    public ActionAssertion(Activity activity, Instrumentation instrumentation, Runnable action,
+    public ActionAssertion(CalculonStoryTest testCase, Activity activity, Instrumentation instrumentation, Runnable action,
             boolean runOnMainThread) {
-        super(activity, instrumentation);
+        super(testCase, activity, instrumentation);
         this.action = action;
         this.runOnMainThread = runOnMainThread;
     }
 
     public ViewAssertion implies(int otherViewId) {
         performPendingAction();
-        return new ViewAssertion(activity, instrumentation, activity
+        return new ViewAssertion(testCase, activity, instrumentation, activity
             .findViewById(otherViewId));
     }
 
     public <C extends Context> Activity starts(Class<C> contextClass) {
         ActivityMonitor monitor = instrumentation.addMonitor(contextClass.getCanonicalName(), null,
             false);
-
+        
         requirePendingAction();
         performPendingAction();
-
+        
         assertTrue(instrumentation.checkMonitorHit(monitor, 1));
 
         return monitor.getLastActivity();

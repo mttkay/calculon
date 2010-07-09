@@ -1,19 +1,22 @@
 package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertEquals;
+
+import com.github.calculon.CalculonStoryTest;
+
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.view.View;
 
 public class ViewAssertion extends UserInputAssertionBase<View> {
 
-    public ViewAssertion(Activity activity, Instrumentation instrumentation, View view) {
-        super(activity, instrumentation);
+    public ViewAssertion(CalculonStoryTest testCase, Activity activity, Instrumentation instrumentation, View view) {
+        super(testCase, activity, instrumentation);
         this.target = view;
     }
 
     public ActionAssertion click() {
-        return new ActionAssertion(activity, instrumentation, new Runnable() {
+        return new ActionAssertion(testCase, activity, instrumentation, new Runnable() {
             public void run() {
                 target.performClick();
             }
@@ -21,7 +24,7 @@ public class ViewAssertion extends UserInputAssertionBase<View> {
     }
 
     public ActionAssertion longClick() {
-        return new ActionAssertion(activity, instrumentation, new Runnable() {
+        return new ActionAssertion(testCase, activity, instrumentation, new Runnable() {
             public void run() {
                 target.performLongClick();
             }
