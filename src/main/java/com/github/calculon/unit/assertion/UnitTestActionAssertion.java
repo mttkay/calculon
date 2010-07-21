@@ -1,20 +1,22 @@
-package com.github.calculon.assertion;
+package com.github.calculon.unit.assertion;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import android.app.Activity;
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.content.Intent;
 
-import com.github.calculon.CalculonStoryTest;
+import com.github.calculon.CalculonUnitTest;
 
-public class ActionAssertion<ActivityT extends Activity> extends AssertionBase<ActivityT> {
+
+public class UnitTestActionAssertion<ActivityT extends Activity> extends UnitTestAssertionBase<ActivityT> {
 
     private Runnable action;
-
     private boolean runOnMainThread;
 
-    public ActionAssertion(CalculonStoryTest<ActivityT> testCase, Activity activity,
+    
+    public UnitTestActionAssertion(CalculonUnitTest<ActivityT> testCase, Activity activity,
             Instrumentation instrumentation, Runnable action,
             boolean runOnMainThread) {
         super(testCase, activity, instrumentation);
@@ -22,22 +24,21 @@ public class ActionAssertion<ActivityT extends Activity> extends AssertionBase<A
         this.runOnMainThread = runOnMainThread;
     }
 
-    public ViewAssertion<ActivityT> implies(int otherViewId) {
+    public UnitTestViewAssertion<ActivityT> implies(int otherViewId) {
         performPendingAction();
-        return new ViewAssertion<ActivityT>(testCase, activity, instrumentation, activity
+        return new UnitTestViewAssertion<ActivityT>(testCase, activity, instrumentation, activity
             .findViewById(otherViewId));
     }
 
-    public <C extends Context> Activity starts(Class<C> contextClass) {
-        ActivityMonitor monitor = instrumentation.addMonitor(contextClass.getCanonicalName(), null,
-            false);
-        
+    public <C extends Context>Intent starts(Class<C> contextClass) {
         requirePendingAction();
         performPendingAction();
         
-        assertTrue(instrumentation.checkMonitorHit(monitor, 1));
+        Intent intent = new Intent();
+        intent = testCase.getStartedActivityIntent();
+		assertEquals(contextClass.getCanonicalName(), intent.getComponent().getClassName());
 
-        return monitor.getLastActivity();
+		return intent;
     }
 
     public void finishesActivity() {

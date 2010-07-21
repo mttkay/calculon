@@ -1,4 +1,4 @@
-package com.github.calculon.assertion;
+package com.github.calculon.story.assertion;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -7,10 +7,10 @@ import android.app.Instrumentation;
 
 import com.github.calculon.CalculonStoryTest;
 
-public class ActivityAssertion<ActivityT extends Activity> extends
-        UserInputAssertionBase<Activity, ActivityT> {
+public class StoryTestActivityAssertion<ActivityT extends Activity> extends
+        StoryTestUserInputAssertionBase<Activity, ActivityT> {
 
-    public ActivityAssertion(CalculonStoryTest<ActivityT> testCase, Activity activity,
+    public StoryTestActivityAssertion(CalculonStoryTest<ActivityT> testCase, Activity activity,
             Instrumentation instrumentation) {
         super(testCase, activity, instrumentation);
         this.target = activity;
@@ -32,4 +32,5 @@ public class ActivityAssertion<ActivityT extends Activity> extends
         assertEquals("Expected landscape mode, but was portrait", 1, activity.getWindowManager()
             .getDefaultDisplay().getOrientation());
     }
+    
 }
