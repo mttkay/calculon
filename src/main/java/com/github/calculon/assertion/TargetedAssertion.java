@@ -4,6 +4,7 @@ import static junit.framework.Assert.assertTrue;
 
 import java.lang.reflect.Method;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 
@@ -45,6 +46,14 @@ public abstract class TargetedAssertion<TargetT> extends AssertionBase {
         }
 
         words[0] = words[0].toLowerCase();
+
+        // check whether the condition is a negation
+        boolean negate = false;
+        if (words.length > 1 && "not".equalsIgnoreCase(words[1]) || "no".equalsIgnoreCase(words[1])) {
+            words = (String[]) ArrayUtils.remove(words, 1);
+            negate = true;
+        }
+
         String methodName = StringUtils.join(words);
 
         boolean result = false;
@@ -52,10 +61,10 @@ public abstract class TargetedAssertion<TargetT> extends AssertionBase {
             Method method = target.getClass().getMethod(methodName, (Class<?>[]) null);
             result = (Boolean) method.invoke(target);
         } catch (Exception e) {
-            throw new IllegalArgumentException("not a valid condition: " + condition);
+            throw new IllegalArgumentException("not a valid condition or method not accessible: '"
+                    + condition + "' (translated to '" + methodName + "')");
         }
 
-         assertTrue(condition + " was not satisfied", result);
+        assertTrue(condition + " was not satisfied", negate ? !result : result);
     }
-
 }
