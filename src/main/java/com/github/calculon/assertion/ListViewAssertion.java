@@ -46,6 +46,14 @@ public class ListViewAssertion extends ViewAssertion {
         }, true);
     }
 
+    public ActionAssertion clickFirst() {
+        return click(0);
+    }
+
+    public ActionAssertion clickLast() {
+        return click(getAdapter().getCount() - 1);
+    }
+
     private ListAdapter getAdapter() {
         ListAdapter adapter = listView.getAdapter();
         assertNotNull("list adapter expected to exist, but was null", adapter);
