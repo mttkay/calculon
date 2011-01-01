@@ -3,11 +3,9 @@ package com.github.calculon;
 import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
 
+import com.github.calculon.assertion.CalculonAssertions;
 import com.github.calculon.story.StoryTestActivityStack;
-import com.github.calculon.story.assertion.StoryTestActivityAssertion;
-import com.github.calculon.story.assertion.StoryTestViewAssertion;
 
 public abstract class CalculonStoryTest<ActivityT extends Activity> extends
         ActivityInstrumentationTestCase2<ActivityT> {
@@ -38,41 +36,7 @@ public abstract class CalculonStoryTest<ActivityT extends Activity> extends
         activityStack = new StoryTestActivityStack(getActivity());
         setActivityInitialTouchMode(false);
 
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
-    protected StoryTestActivityAssertion<ActivityT> assertThat() {
-        return new StoryTestActivityAssertion<ActivityT>(this, assertCurrentActivity(),
-                getInstrumentation());
-    }
-
-    protected StoryTestActivityAssertion<ActivityT> assertThat(Activity activity) {
-        return new StoryTestActivityAssertion<ActivityT>(this, activity, getInstrumentation());
-    }
-
-    protected StoryTestViewAssertion<ActivityT> assertThat(View view) {
-        return new StoryTestViewAssertion<ActivityT>(this, assertCurrentActivity(),
-                getInstrumentation(), view);
-    }
-
-    protected StoryTestViewAssertion<ActivityT> assertThat(int viewId) {
-        Activity activity = assertCurrentActivity();
-
-        View view = activity.findViewById(viewId);
-        assertNotNull("View " + viewId + " is null in Activity "
-                + activity.getClass().getCanonicalName(), view);
-
-        return assertThat(view);
-    }
-
-    private Activity assertCurrentActivity() {
-        Activity activity = getCurrentActivity();
-        assertNotNull("Activity is null", activity);
-        return activity;
+        CalculonAssertions.register(this);
     }
 
     public void setCurrentActivity(Activity currentActivity) {

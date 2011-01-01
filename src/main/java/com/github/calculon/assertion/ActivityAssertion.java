@@ -1,36 +1,32 @@
-package com.github.calculon.story.assertion;
+package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import android.app.Activity;
-import android.app.Instrumentation;
+import android.test.InstrumentationTestCase;
 
-import com.github.calculon.CalculonStoryTest;
+public class ActivityAssertion extends UserInputAssertion<Activity> {
 
-public class StoryTestActivityAssertion<ActivityT extends Activity> extends
-        StoryTestUserInputAssertionBase<Activity, ActivityT> {
-
-    public StoryTestActivityAssertion(CalculonStoryTest<ActivityT> testCase, Activity activity,
-            Instrumentation instrumentation) {
-        super(testCase, activity, instrumentation);
+    public ActivityAssertion(InstrumentationTestCase testCase, Activity activity) {
+        super(testCase, activity);
         this.target = activity;
     }
 
     public void viewExists(int... viewIds) {
         for (int id : viewIds) {
             assertNotNull("View " + id + " is null, but expected to exist", activity
-                .findViewById(id));
+                    .findViewById(id));
         }
     }
 
     public void inPortraitMode() {
         assertEquals("Expected portrait mode, but was landscape", 0, activity.getWindowManager()
-            .getDefaultDisplay().getOrientation());
+                .getDefaultDisplay().getOrientation());
     }
 
     public void inLandscapeMode() {
         assertEquals("Expected landscape mode, but was portrait", 1, activity.getWindowManager()
-            .getDefaultDisplay().getOrientation());
+                .getDefaultDisplay().getOrientation());
     }
-    
+
 }
