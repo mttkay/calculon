@@ -2,7 +2,6 @@ package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertTrue;
 import android.app.Activity;
-import android.content.Context;
 import android.test.InstrumentationTestCase;
 
 public abstract class ActionAssertion extends AssertionBase {
@@ -25,18 +24,20 @@ public abstract class ActionAssertion extends AssertionBase {
         return new ViewAssertion(testCase, activity, activity.findViewById(otherViewId));
     }
 
-    public abstract <C extends Context> void starts(Class<C> contextClass);
+    /**
+     * Asserts whether an Activity of the given type has been started. <b>Note
+     * that you must never call this assertion more than once per test method,
+     * since the started Activity or the Intent used to start it will stick
+     * around and may yield false positives on subsequent invocations.</b>
+     * 
+     * @param activityClass
+     *            the class of the Activity expected to be started
+     */
+    public abstract void starts(Class<? extends Activity> activityClass);
 
     public void finishesActivity() {
         performPendingAction();
         assertTrue(activity.isFinishing());
-    }
-
-    protected void requirePendingAction() {
-        if (action == null) {
-            throw new IllegalStateException(
-                    "This assertion relies on an action that triggers it, such as a click()");
-        }
     }
 
     protected void performPendingAction() {

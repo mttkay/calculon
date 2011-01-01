@@ -3,7 +3,6 @@ package com.github.calculon.assertion.story;
 import static junit.framework.Assert.assertTrue;
 import android.app.Activity;
 import android.app.Instrumentation.ActivityMonitor;
-import android.content.Context;
 import android.test.InstrumentationTestCase;
 
 import com.github.calculon.assertion.ActionAssertion;
@@ -16,11 +15,10 @@ public class StoryTestActionAssertion extends ActionAssertion {
     }
 
     @Override
-    public <C extends Context> void starts(Class<C> contextClass) {
-        ActivityMonitor monitor = instrumentation.addMonitor(contextClass.getCanonicalName(), null,
-                false);
+    public void starts(Class<? extends Activity> activityClass) {
+        ActivityMonitor monitor = instrumentation.addMonitor(activityClass.getCanonicalName(),
+                null, false);
 
-        requirePendingAction();
         performPendingAction();
 
         assertTrue(instrumentation.checkMonitorHit(monitor, 1));

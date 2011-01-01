@@ -2,7 +2,6 @@ package com.github.calculon.assertion.unit;
 
 import junit.framework.Assert;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.test.InstrumentationTestCase;
 
@@ -16,11 +15,10 @@ public class UnitTestActionAssertion extends ActionAssertion {
     }
 
     @Override
-    public <C extends Context> void starts(Class<C> contextClass) {
-        requirePendingAction();
+    public void starts(Class<? extends Activity> activityClass) {
         performPendingAction();
 
-        String expectedActivityClass = contextClass.getCanonicalName();
+        String expectedActivityClass = activityClass.getCanonicalName();
         Intent intent = new Intent();
         intent = getUnitTestCase().getStartedActivityIntent();
         if (intent == null) {
