@@ -11,8 +11,9 @@ public abstract class UserInputAssertion<TargetT> extends AssertionBase {
 
     protected TargetT target;
 
-    public UserInputAssertion(InstrumentationTestCase testCase, Activity activity) {
+    public UserInputAssertion(InstrumentationTestCase testCase, Activity activity, TargetT target) {
         super(testCase, activity);
+        this.target = target;
     }
 
     public ActionAssertion keyPress(final int... keyCodes) {

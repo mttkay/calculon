@@ -8,8 +8,7 @@ import android.test.InstrumentationTestCase;
 public class ActivityAssertion extends UserInputAssertion<Activity> {
 
     public ActivityAssertion(InstrumentationTestCase testCase, Activity activity) {
-        super(testCase, activity);
-        this.target = activity;
+        super(testCase, activity, activity);
     }
 
     public void viewExists(int... viewIds) {

@@ -4,6 +4,7 @@ import static junit.framework.Assert.assertNotNull;
 import android.app.Activity;
 import android.test.InstrumentationTestCase;
 import android.view.View;
+import android.widget.ListView;
 
 import com.github.calculon.CalculonTestCase;
 
@@ -17,13 +18,25 @@ public class CalculonAssertions {
         return activity;
     }
 
-    private static void assertViewNotNull(View view) {
-        assertNotNull("View " + view.getId() + " is null in Activity "
-                + getActivity().getClass().getCanonicalName(), view);
-    }
-
     public static void register(InstrumentationTestCase testCase) {
         CalculonAssertions.testCase = testCase;
+    }
+
+    // -------- VIEW RESOLVERS-----------------------------------------
+
+    public static ListView list() {
+        return list(android.R.id.list);
+    }
+
+    public static ListView list(int id) {
+        return (ListView) getActivity().findViewById(id);
+    }
+
+    // -------- ASSERTIONS --------------------------------------------
+
+    public static void assertViewNotNull(View view) {
+        assertNotNull("View " + view.getId() + " is null in Activity "
+                + getActivity().getClass().getCanonicalName(), view);
     }
 
     public static ActivityAssertion assertThat() {
@@ -35,13 +48,15 @@ public class CalculonAssertions {
     }
 
     public static ViewAssertion assertThat(View view) {
-        assertViewNotNull(view);
         return new ViewAssertion(testCase, getActivity(), view);
     }
 
     public static ViewAssertion assertThat(int viewId) {
-        View view = getActivity().findViewById(viewId);
-        assertViewNotNull(view);
-        return assertThat(view);
+        return assertThat(getActivity().findViewById(viewId));
     }
+
+    public static ListViewAssertion assertThat(ListView view) {
+        return new ListViewAssertion(testCase, getActivity(), view);
+    }
+
 }

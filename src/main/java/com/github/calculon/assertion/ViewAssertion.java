@@ -8,8 +8,8 @@ import android.view.View;
 public class ViewAssertion extends UserInputAssertion<View> {
 
     public ViewAssertion(InstrumentationTestCase testCase, Activity activity, View view) {
-        super(testCase, activity);
-        this.target = view;
+        super(testCase, activity, view);
+        CalculonAssertions.assertViewNotNull(view);
     }
 
     public ActionAssertion click() {
