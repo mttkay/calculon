@@ -12,11 +12,11 @@ import android.test.InstrumentationTestCase;
 
 import com.github.calculon.predicate.Predicate;
 
-public abstract class UserInputAssertion<TargetT> extends AssertionBase {
+public abstract class TargetedAssertion<TargetT> extends AssertionBase {
 
     protected TargetT target;
 
-    public UserInputAssertion(InstrumentationTestCase testCase, Activity activity, TargetT target) {
+    public TargetedAssertion(InstrumentationTestCase testCase, Activity activity, TargetT target) {
         super(testCase, activity);
         this.target = target;
     }

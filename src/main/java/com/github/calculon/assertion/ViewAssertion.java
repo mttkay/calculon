@@ -7,7 +7,7 @@ import android.test.InstrumentationTestCase;
 import android.view.View;
 import android.widget.TextView;
 
-public class ViewAssertion extends UserInputAssertion<View> {
+public class ViewAssertion extends TargetedAssertion<View> {
 
     public ViewAssertion(InstrumentationTestCase testCase, Activity activity, View view) {
         super(testCase, activity, view);

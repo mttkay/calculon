@@ -5,7 +5,7 @@ import static junit.framework.Assert.assertNotNull;
 import android.app.Activity;
 import android.test.InstrumentationTestCase;
 
-public class ActivityAssertion extends UserInputAssertion<Activity> {
+public class ActivityAssertion extends TargetedAssertion<Activity> {
 
     public ActivityAssertion(InstrumentationTestCase testCase, Activity activity) {
         super(testCase, activity, activity);
