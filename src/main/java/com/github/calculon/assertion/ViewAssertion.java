@@ -1,9 +1,11 @@
 package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import android.app.Activity;
 import android.test.InstrumentationTestCase;
 import android.view.View;
+import android.widget.TextView;
 
 public class ViewAssertion extends UserInputAssertion<View> {
 
@@ -11,6 +13,8 @@ public class ViewAssertion extends UserInputAssertion<View> {
         super(testCase, activity, view);
         CalculonAssertions.assertViewNotNull(view);
     }
+
+    // ------------ ACTIONS -----------------------------------
 
     public ActionAssertion click() {
         return AssertionClassResolver.actionAssertion(testCase, activity, new Runnable() {
@@ -28,6 +32,8 @@ public class ViewAssertion extends UserInputAssertion<View> {
         }, true);
     }
 
+    // ------------ PREDICATES ---------------------------------
+
     public void exists() {
         // just syntactic sugar
     }
@@ -44,5 +50,12 @@ public class ViewAssertion extends UserInputAssertion<View> {
 
     public void gone() {
         assertEquals("view expected to be GONE, but wasn't", View.GONE, target.getVisibility());
+    }
+
+    // ------------ CONVERTERS -----------------------------------
+
+    public TextViewAssertion asText() {
+        assertTrue("expected view to be a TextView, but wasn't", target instanceof TextView);
+        return new TextViewAssertion(testCase, activity, (TextView) target);
     }
 }

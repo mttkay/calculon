@@ -32,6 +32,10 @@ public class ListViewAssertion extends ViewAssertion {
         assertTrue("list view expected to be empty, but wasn't", getAdapter().isEmpty());
     }
 
+    public ViewAssertion item(int position) {
+        return new ViewAssertion(testCase, activity, getAdapter().getView(position, null, listView));
+    }
+
     public ActionAssertion click(final int position) {
         return AssertionClassResolver.actionAssertion(testCase, activity, new Runnable() {
             public void run() {
