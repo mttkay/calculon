@@ -1,7 +1,12 @@
 package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+
+import java.lang.reflect.Method;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
+
 import android.app.Activity;
 import android.test.InstrumentationTestCase;
 
@@ -29,11 +34,28 @@ public abstract class UserInputAssertion<TargetT> extends AssertionBase {
     }
 
     public void satisfies(Predicate<TargetT> predicate) {
-        try {
-            assertTrue(predicate.check(target));
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Terminated unexpectedly by exception");
-        }
+        assertTrue("the " + target.getClass().getSimpleName()
+                + " did not satisfy the given condition", predicate.check(target));
     }
+
+    public void satisfies(final String condition) {
+        String[] words = WordUtils.capitalize(condition).split("\\s");
+        if (words.length == 0) {
+            throw new IllegalArgumentException("not a valid condition: " + condition);
+        }
+
+        words[0] = words[0].toLowerCase();
+        String methodName = StringUtils.join(words);
+
+        boolean result = false;
+        try {
+            Method method = target.getClass().getMethod(methodName, (Class<?>[]) null);
+            result = (Boolean) method.invoke(target);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("not a valid condition: " + condition);
+        }
+
+         assertTrue(condition + " was not satisfied", result);
+    }
+
 }
