@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.test.InstrumentationTestCase;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.github.calculon.CalculonTestCase;
 
@@ -30,6 +31,10 @@ public class CalculonAssertions {
 
     public static ListView list(int id) {
         return (ListView) getActivity().findViewById(id);
+    }
+
+    public static TextView text(int id) {
+        return (TextView) getActivity().findViewById(id);
     }
 
     // -------- ASSERTIONS --------------------------------------------
@@ -59,4 +64,7 @@ public class CalculonAssertions {
         return new ListViewAssertion(testCase, getActivity(), view);
     }
 
+    public static TextViewAssertion assertThat(TextView view) {
+        return new TextViewAssertion(testCase, getActivity(), view);
+    }
 }
