@@ -17,7 +17,7 @@ public class ViewAssertion extends UserInputAssertion<View> {
     // ------------ ACTIONS -----------------------------------
 
     public ActionAssertion click() {
-        return AssertionClassResolver.actionAssertion(testCase, activity, new Runnable() {
+        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
             public void run() {
                 target.performClick();
             }
@@ -25,7 +25,7 @@ public class ViewAssertion extends UserInputAssertion<View> {
     }
 
     public ActionAssertion longClick() {
-        return AssertionClassResolver.actionAssertion(testCase, activity, new Runnable() {
+        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
             public void run() {
                 target.performLongClick();
             }

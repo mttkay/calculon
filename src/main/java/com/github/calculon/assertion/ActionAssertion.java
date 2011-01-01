@@ -35,7 +35,7 @@ public abstract class ActionAssertion extends AssertionBase {
     protected void requirePendingAction() {
         if (action == null) {
             throw new IllegalStateException(
-                    "This assertion relies on an action being set which triggers it, such as a click()");
+                    "This assertion relies on an action that triggers it, such as a click()");
         }
     }
 

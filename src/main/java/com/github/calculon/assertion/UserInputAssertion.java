@@ -22,7 +22,7 @@ public abstract class UserInputAssertion<TargetT> extends AssertionBase {
     }
 
     public ActionAssertion keyPress(final int... keyCodes) {
-        return AssertionClassResolver.actionAssertion(testCase, activity, new Runnable() {
+        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
             public void run() {
                 for (int code : keyCodes) {
                     instrumentation.sendKeyDownUpSync(code);

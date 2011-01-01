@@ -37,7 +37,7 @@ public class ListViewAssertion extends ViewAssertion {
     }
 
     public ActionAssertion click(final int position) {
-        return AssertionClassResolver.actionAssertion(testCase, activity, new Runnable() {
+        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
             public void run() {
                 View itemView = getAdapter().getView(position, null, listView);
                 assertNotNull("item view at position " + position + " was null", itemView);
