@@ -4,6 +4,7 @@ import static junit.framework.Assert.assertNotNull;
 import android.app.Activity;
 import android.test.InstrumentationTestCase;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,6 +38,10 @@ public class CalculonAssertions {
         return (TextView) getActivity().findViewById(id);
     }
 
+    public static ViewGroup parent(int id) {
+        return (ViewGroup) getActivity().findViewById(id);
+    }
+
     // -------- ASSERTIONS --------------------------------------------
 
     public static void assertViewNotNull(View view) {
@@ -58,6 +63,10 @@ public class CalculonAssertions {
 
     public static ViewAssertion assertThat(int viewId) {
         return assertThat(getActivity().findViewById(viewId));
+    }
+
+    public static ViewGroupAssertion assertThat(ViewGroup view) {
+        return new ViewGroupAssertion(testCase, getActivity(), view);
     }
 
     public static ListViewAssertion assertThat(ListView view) {
