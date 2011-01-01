@@ -40,7 +40,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <androidVersion>1.5</androidVersion>
+    <androidVersion>2.3.1</androidVersion>
     <mavenAndroidPluginVersion>2.5.0</mavenAndroidPluginVersion>    
   </properties>  
 
@@ -125,16 +125,23 @@
     <dependency>
       <groupId>com.google.android</groupId>
       <artifactId>android</artifactId>
-      <version>${androidVersion}_r4</version>
+      <version>${androidVersion}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>com.google.android</groupId>
       <artifactId>android-test</artifactId>
-      <version>${androidVersion}_r4</version>
+      <version>${androidVersion}</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.4</version>
+    </dependency>
+    
   </dependencies>  
 
   <distributionManagement>
