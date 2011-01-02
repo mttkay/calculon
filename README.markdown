@@ -1,4 +1,4 @@
-![Calculon](http://github.com/kaeppler/calculon/raw/master/assets/calculon.png)
+![Calculon](https://github.com/kaeppler/calculon/raw/master/assets/calculon.png)
 
 ## "Calculon never does two takes!"
 
