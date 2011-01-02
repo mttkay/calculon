@@ -16,18 +16,6 @@ public abstract class TargetedAssertion<TargetT> extends AssertionBase {
         this.target = target;
     }
 
-    public ActionAssertion keyPress(final int... keyCodes) {
-        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
-            public void run() {
-                for (int code : keyCodes) {
-                    instrumentation.sendKeyDownUpSync(code);
-                }
-
-                instrumentation.waitForIdleSync();
-            }
-        }, false);
-    }
-
     public void satisfies(final Predicate<TargetT> predicate) {
         assertTrue("the " + target.getClass().getSimpleName()
                 + " did not satisfy the given condition", predicate.check(target));

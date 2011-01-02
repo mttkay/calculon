@@ -28,4 +28,15 @@ public class ActivityAssertion extends TargetedAssertion<Activity> {
                 .getDefaultDisplay().getOrientation());
     }
 
+    public ActionAssertion keyPress(final int... keyCodes) {
+        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
+            public void run() {
+                for (int code : keyCodes) {
+                    instrumentation.sendKeyDownUpSync(code);
+                }
+
+                instrumentation.waitForIdleSync();
+            }
+        }, false);
+    }
 }
