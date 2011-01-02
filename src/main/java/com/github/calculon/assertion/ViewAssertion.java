@@ -5,6 +5,7 @@ import static junit.framework.Assert.assertTrue;
 import android.app.Activity;
 import android.test.InstrumentationTestCase;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.TextView;
 
 public class ViewAssertion extends TargetedAssertion<View> {
@@ -17,6 +18,10 @@ public class ViewAssertion extends TargetedAssertion<View> {
     // ------------ ACTIONS -----------------------------------
 
     public ActionAssertion click() {
+        if (target.getLayoutParams() instanceof AbsListView.LayoutParams) {
+            throw new IllegalStateException(
+                    "use clickFirst(), clickLast(), and click(position) to click list items");
+        }
         return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
             public void run() {
                 target.performClick();
