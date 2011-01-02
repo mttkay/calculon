@@ -4,6 +4,10 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.test.InstrumentationTestCase;
 import android.view.View;
@@ -34,6 +38,24 @@ public class ListViewAssertion extends ViewAssertion {
 
     public ViewAssertion item(int position) {
         return new ViewAssertion(testCase, activity, getAdapter().getView(position, null, listView));
+    }
+
+    public ViewAssertion firstItem() {
+        return item(0);
+    }
+
+    public ViewAssertion lastItem() {
+        return item(getAdapter().getCount() - 1);
+    }
+
+    public MultiViewAssertion items() {
+        ListAdapter adapter = getAdapter();
+        int count = adapter.getCount();
+        List<View> views = new ArrayList<View>(count);
+        for (int i = 0; i < count; i++) {
+            views.add(adapter.getView(i, null, listView));
+        }
+        return new MultiViewAssertion(testCase, activity, views);
     }
 
     public ActionAssertion click(final int position) {
