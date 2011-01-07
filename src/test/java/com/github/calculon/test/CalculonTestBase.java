@@ -7,6 +7,7 @@ import org.mockito.Mock;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Intent;
 import android.test.InstrumentationTestCase;
 
 public class CalculonTestBase {
@@ -17,6 +18,8 @@ public class CalculonTestBase {
     Instrumentation instrumentation;
     @Mock
     Activity activity;
+    @Mock
+    Intent intent;
 
     @Before
     public void setup() {
