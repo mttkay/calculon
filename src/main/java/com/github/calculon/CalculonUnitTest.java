@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.test.ActivityUnitTestCase;
 
+import com.github.calculon.annotation.Annotations;
 import com.github.calculon.assertion.CalculonAssertions;
 
 public abstract class CalculonUnitTest<ActivityT extends Activity> extends
@@ -28,15 +29,22 @@ public abstract class CalculonUnitTest<ActivityT extends Activity> extends
         CalculonAssertions.register(this);
     }
 
+    protected void setUpIntent(Intent intent) {
+        // to be implemented by subclasses
+    }
+
     protected void startActivity() {
-        startActivity(new Intent(getInstrumentation().getTargetContext(), mActivityClass), null,
-                null);
+        startActivity(null);
         getInstrumentation().waitForIdleSync();
     }
 
     protected void startActivity(Bundle extras) {
         Intent intent = new Intent(getInstrumentation().getTargetContext(), mActivityClass);
-        intent.putExtras(extras);
+        setUpIntent(intent);
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
+        Annotations.validateExpectedExtras(getClass(), intent);
         startActivity(intent, null, null);
         getInstrumentation().waitForIdleSync();
     }
