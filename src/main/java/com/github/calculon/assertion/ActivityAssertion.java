@@ -1,7 +1,6 @@
 package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
 import android.app.Activity;
 import android.test.InstrumentationTestCase;
 
@@ -9,13 +8,6 @@ public class ActivityAssertion extends TargetedAssertion<Activity> {
 
     public ActivityAssertion(InstrumentationTestCase testCase, Activity activity) {
         super(testCase, activity, activity);
-    }
-
-    public void viewExists(int... viewIds) {
-        for (int id : viewIds) {
-            assertNotNull("View " + id + " is null, but expected to exist", activity
-                    .findViewById(id));
-        }
     }
 
     public void inPortraitMode() {

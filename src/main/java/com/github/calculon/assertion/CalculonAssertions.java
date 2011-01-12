@@ -45,8 +45,7 @@ public class CalculonAssertions {
     // -------- ASSERTIONS --------------------------------------------
 
     public static void assertViewNotNull(View view) {
-        assertNotNull("View " + view.getId() + " is null in Activity "
-                + getActivity().getClass().getCanonicalName(), view);
+        assertNotNull("view expected to exist, but didn't", view);
     }
 
     public static ActivityAssertion assertThat() {
