@@ -3,6 +3,10 @@ package com.github.calculon.assertion;
 import static junit.framework.Assert.assertTrue;
 import android.app.Activity;
 import android.test.InstrumentationTestCase;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public abstract class ActionAssertion extends AssertionBase {
 
@@ -22,6 +26,26 @@ public abstract class ActionAssertion extends AssertionBase {
     public ViewAssertion implies(int otherViewId) {
         performPendingAction();
         return new ViewAssertion(testCase, activity, activity.findViewById(otherViewId));
+    }
+
+    public ViewAssertion implies(View view) {
+        performPendingAction();
+        return new ViewAssertion(testCase, activity, view);
+    }
+
+    public TextViewAssertion implies(TextView view) {
+        performPendingAction();
+        return new TextViewAssertion(testCase, activity, view);
+    }
+
+    public ListViewAssertion implies(ListView view) {
+        performPendingAction();
+        return new ListViewAssertion(testCase, activity, view);
+    }
+
+    public ViewGroupAssertion implies(ViewGroup view) {
+        performPendingAction();
+        return new ViewGroupAssertion(testCase, activity, view);
     }
 
     /**
