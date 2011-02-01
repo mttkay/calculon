@@ -26,4 +26,18 @@ public class StoryTestActionAssertion extends ActionAssertion {
         Activity lastActivity = monitor.getLastActivity();
         getStoryTestCase().setCurrentActivity(lastActivity);
     }
+
+	@Override
+	public void startsWithIntentAction(String intentAction) {
+        ActivityMonitor monitor = instrumentation.addMonitor(intentAction,
+                null, false);
+
+        performPendingAction();
+
+        assertTrue(instrumentation.checkMonitorHit(monitor, 1));
+
+        Activity lastActivity = monitor.getLastActivity();
+        getStoryTestCase().setCurrentActivity(lastActivity);
+		
+	}
 }

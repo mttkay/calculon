@@ -4,6 +4,7 @@ import junit.framework.Assert;
 import android.app.Activity;
 import android.content.Intent;
 import android.test.InstrumentationTestCase;
+import android.text.TextUtils;
 
 import com.github.calculon.assertion.ActionAssertion;
 
@@ -28,4 +29,18 @@ public class UnitTestActionAssertion extends ActionAssertion {
                     .getComponent().getClassName()));
         }
     }
+
+	@Override
+	public void startsWithIntentAction(String intentAction) {
+		performPendingAction();
+		
+		String activityIntentAction = getUnitTestCase().getStartedActivityIntent().getAction();
+		if (TextUtils.isEmpty(intentAction)) {
+            Assert.fail(String.format(STARTED_INTENT_ACTION_FAIL_MSG, intentAction, "not"));
+        } else {
+			if (!(intentAction.equals(activityIntentAction))) {
+			    Assert.fail(String.format(STARTED_INTENT_ACTION_FAIL_MSG, intentAction, activityIntentAction));
+			}
+		}
+	}
 }
