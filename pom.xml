@@ -42,7 +42,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <androidVersion>2.3.1</androidVersion>
     <mavenAndroidPluginVersion>2.8.4</mavenAndroidPluginVersion>
-    <powermock.version>1.4.7</powermock.version>
+    <powermock.version>1.4.6</powermock.version>
   </properties>  
 
   <!-- build settings -->
