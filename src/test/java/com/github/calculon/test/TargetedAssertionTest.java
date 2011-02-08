@@ -39,7 +39,8 @@ public class TargetedAssertionTest extends CalculonTestBase {
     @Mock
     Hunk hunk;
 
-    @Before
+    @Override
+	@Before
     public void setup() {
         super.setup();
         assertion = new TestTargetedAssertion(testCase, activity, hunk);
