@@ -106,10 +106,9 @@ public abstract class CalculonUnitTest<ActivityT extends Activity> extends
      */
     public Intent launchActivity(Bundle extras) {
         Intent intent = prepareIntent(extras);
-        // TODO: replace with custom call chain
-        Activity activity = launchActivityWithIntent(getTargetContext().getPackageName(),
-                mActivityClass, intent);
-        setActivity(activity);
+        startActivity(extras); // this calls onCreate
+        getInstrumentation().callActivityOnStart(getActivity());
+        getInstrumentation().callActivityOnResume(getActivity());
         getInstrumentation().waitForIdleSync();
         return intent;
     }
