@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.test.ActivityUnitTestCase;
 
-import com.github.calculon.annotation.Annotations;
+import com.github.calculon.annotation.AnnotationChecker;
 import com.github.calculon.annotation.ExpectsExtras;
 import com.github.calculon.assertion.CalculonAssertions;
 
@@ -16,9 +16,12 @@ public abstract class CalculonUnitTest<ActivityT extends Activity> extends
 
     private Class<ActivityT> mActivityClass = null;
 
+    private AnnotationChecker annotationChecker;
+
     public CalculonUnitTest(Class<ActivityT> activityClass) {
         super(activityClass);
         mActivityClass = activityClass;
+        annotationChecker = new AnnotationChecker();
     }
 
     @Override
@@ -135,7 +138,7 @@ public abstract class CalculonUnitTest<ActivityT extends Activity> extends
         if (extras != null) {
             intent.putExtras(extras);
         }
-        Annotations.validateExpectedExtras(getClass(), intent);
+        annotationChecker.validateExpectedExtras(getClass(), getName(), intent);
         return intent;
     }
 }
