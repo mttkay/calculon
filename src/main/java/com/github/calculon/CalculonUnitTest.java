@@ -10,6 +10,8 @@ import android.test.ActivityUnitTestCase;
 import com.github.calculon.annotation.AnnotationChecker;
 import com.github.calculon.annotation.ExpectsExtras;
 import com.github.calculon.assertion.CalculonAssertions;
+import com.github.calculon.support.ActivityLauncher;
+import com.github.calculon.support.ActivityLauncher.LaunchConfiguration;
 
 public abstract class CalculonUnitTest<ActivityT extends Activity> extends
         ActivityUnitTestCase<ActivityT> implements CalculonTestCase {
@@ -17,6 +19,8 @@ public abstract class CalculonUnitTest<ActivityT extends Activity> extends
     private Class<ActivityT> mActivityClass = null;
 
     private AnnotationChecker annotationChecker;
+
+    private LaunchConfiguration launchConfig;
 
     public CalculonUnitTest(Class<ActivityT> activityClass) {
         super(activityClass);
@@ -30,9 +34,27 @@ public abstract class CalculonUnitTest<ActivityT extends Activity> extends
     }
 
     @Override
+    public Class<? extends Activity> getActivityClass() {
+        return mActivityClass;
+    }
+
+    @Override
+    public LaunchConfiguration getLaunchConfiguration() {
+        return launchConfig;
+    }
+
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         CalculonAssertions.register(this);
+        ActivityLauncher.setTestCase(this);
+        launchConfig = new LaunchConfiguration();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        launchConfig = null;
     }
 
     /**
@@ -55,6 +77,11 @@ public abstract class CalculonUnitTest<ActivityT extends Activity> extends
      */
     protected Bundle getDefaultExtras() {
         return null;
+    }
+
+    public ActivityT startActivity(Intent intent, Bundle savedInstanceState,
+            Object lastNonConfigurationInstance) {
+        return super.startActivity(intent, savedInstanceState, lastNonConfigurationInstance);
     }
 
     /**
