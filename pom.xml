@@ -149,7 +149,8 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.8.2</version>
-      <scope>test</scope>
+      <!-- using test scope here will collide with Android's JUnit 3 -->
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
