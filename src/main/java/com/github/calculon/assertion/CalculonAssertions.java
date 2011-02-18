@@ -26,6 +26,10 @@ public class CalculonAssertions {
 
     // -------- VIEW RESOLVERS-----------------------------------------
 
+    public static View view(int id) {
+    	return getActivity().findViewById(id);
+    }
+    
     public static ListView list() {
         return list(android.R.id.list);
     }
