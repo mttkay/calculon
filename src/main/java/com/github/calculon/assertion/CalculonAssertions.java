@@ -2,6 +2,7 @@ package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertNotNull;
 import android.app.Activity;
+import android.content.Intent;
 import android.test.InstrumentationTestCase;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,10 @@ public class CalculonAssertions {
 
     public static ActivityAssertion assertThat(Activity activity) {
         return new ActivityAssertion(testCase, activity);
+    }
+    
+    public static IntentAssertion assertThat(Intent intent) {
+    	return new IntentAssertion(testCase, getActivity(), intent);
     }
 
     public static ViewAssertion assertThat(View view) {

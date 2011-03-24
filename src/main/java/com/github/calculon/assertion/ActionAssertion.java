@@ -2,6 +2,7 @@ package com.github.calculon.assertion;
 
 import static junit.framework.Assert.assertTrue;
 import android.app.Activity;
+import android.content.Intent;
 import android.test.InstrumentationTestCase;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,11 @@ public abstract class ActionAssertion extends AssertionBase {
             }
             instrumentation.waitForIdleSync();
         }
+	}
+
+	public IntentAssertion assertThat(Intent startedActivityIntent) {
+		performPendingAction();
+		return new IntentAssertion(testCase, activity, startedActivityIntent);
 	}
 
 }
