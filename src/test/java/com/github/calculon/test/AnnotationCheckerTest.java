@@ -32,7 +32,9 @@ public class AnnotationCheckerTest extends CalculonTestBase {
 
     @Test
     public void shouldPassWhenClassExpectedExtrasArePresent() throws Exception {
-        when(intent.hasExtra("some_extra")).thenReturn(true);
+        when(intent.getExtras()).thenReturn(bundle);
+        when(bundle.get("some_extra")).thenReturn(bundle);
+    	when(intent.hasExtra("some_extra")).thenReturn(true);
         checker.validateExpectedExtras(AnnotatedTestCase.class, "testSomething", intent);
     }
 
@@ -44,6 +46,8 @@ public class AnnotationCheckerTest extends CalculonTestBase {
 
     @Test
     public void shouldPassWhenMethodExpectedExtrasArePresent() throws Exception {
+    	when(intent.getExtras()).thenReturn(bundle);
+        when(bundle.get("some_extra")).thenReturn(bundle);
         when(intent.hasExtra("some_extra")).thenReturn(true);
         checker.validateExpectedExtras(SingleAnnotatedTestCase.class, "testWithAnnotation", intent);
     }

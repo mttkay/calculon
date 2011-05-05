@@ -79,7 +79,8 @@ public abstract class CalculonUnitTest<ActivityT extends Activity> extends
         return null;
     }
 
-    public ActivityT startActivity(Intent intent, Bundle savedInstanceState,
+    @Override
+	public ActivityT startActivity(Intent intent, Bundle savedInstanceState,
             Object lastNonConfigurationInstance) {
         return super.startActivity(intent, savedInstanceState, lastNonConfigurationInstance);
     }

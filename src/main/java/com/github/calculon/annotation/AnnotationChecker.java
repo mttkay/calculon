@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import android.content.Intent;
+import android.os.Bundle;
 
 public class AnnotationChecker {
 
@@ -17,9 +18,14 @@ public class AnnotationChecker {
         }
         String[] extras = annotation.value();
         for (String extra : extras) {
-            if (!intent.hasExtra(extra)) {
+        	Bundle intentExtras = intent.getExtras();
+			if (intentExtras == null) {
+            	Assert.fail("The intent used to start the activity has no extras");            	
+            } else if (!intent.hasExtra(extra)) {
                 Assert.fail("The intent used to start the activity is missing the extra '" + extra
                         + "'");
+            } else if (intentExtras.get(extra) == null) {
+            	Assert.fail("The extra '" + extra + "' in the intent used to start the activity is null");
             }
         }
     }
