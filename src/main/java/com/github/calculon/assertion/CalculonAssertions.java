@@ -31,6 +31,10 @@ public class CalculonAssertions {
     	return getActivity().findViewById(id);
     }
     
+    public static View view(int layoutId, int viewId) {
+    	return view(layoutId).findViewById(viewId);
+    }
+    
     public static ListView list() {
         return list(android.R.id.list);
     }
