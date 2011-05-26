@@ -29,7 +29,7 @@ public abstract class CalculonUnitTest<ActivityT extends Activity> extends
     }
 
     @Override
-    public Activity getCurrentActivity() {
+    public ActivityT getCurrentActivity() {
         return getActivity();
     }
 
