@@ -42,6 +42,10 @@ public class CalculonAssertions {
     public static ListView list(int id) {
         return (ListView) getActivity().findViewById(id);
     }
+    
+    public static View emptyListView() {
+    	return view(android.R.id.empty);
+    }
 
     public static TextView text(int id) {
         return (TextView) getActivity().findViewById(id);
