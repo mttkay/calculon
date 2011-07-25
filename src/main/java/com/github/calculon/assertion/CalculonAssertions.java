@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.test.InstrumentationTestCase;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.github.calculon.CalculonTestCase;
 
@@ -51,6 +55,18 @@ public class CalculonAssertions {
         return (TextView) getActivity().findViewById(id);
     }
 
+    public static CheckBox checkBox(int id) {
+        return (CheckBox) getActivity().findViewById(id);
+    }
+
+    public static ToggleButton toggleButton(int id) {
+        return (ToggleButton) getActivity().findViewById(id);
+    }
+
+    public static RadioButton radioButton(int id) {
+        return (RadioButton) getActivity().findViewById(id);
+    }
+
     public static ViewGroup parent(int id) {
         return (ViewGroup) getActivity().findViewById(id);
     }
@@ -91,5 +107,9 @@ public class CalculonAssertions {
 
     public static TextViewAssertion assertThat(TextView view) {
         return new TextViewAssertion(testCase, getActivity(), view);
+    }
+
+    public static CompoundButtonAssertion assertThat(CompoundButton view) {
+        return new CompoundButtonAssertion(testCase, getActivity(), view);
     }
 }
