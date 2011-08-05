@@ -7,11 +7,11 @@ import android.test.InstrumentationTestCase;
 
 import com.github.calculon.assertion.ActionAssertion;
 
-public class StoryTestActionAssertion extends ActionAssertion {
+public class StoryTestActionAssertion<AssertionT> extends ActionAssertion<AssertionT> {
 
-    public StoryTestActionAssertion(InstrumentationTestCase testCase, Activity activity,
-            Runnable action, boolean runOnMainThread) {
-        super(testCase, activity, action, runOnMainThread);
+    public StoryTestActionAssertion(AssertionT fromAssertion, InstrumentationTestCase testCase,
+            Activity activity, Runnable action, boolean runOnMainThread) {
+        super(fromAssertion, testCase, activity, action, runOnMainThread);
     }
 
     @Override
@@ -27,10 +27,9 @@ public class StoryTestActionAssertion extends ActionAssertion {
         getStoryTestCase().setCurrentActivity(lastActivity);
     }
 
-	@Override
-	public void startsWithIntentAction(String intentAction) {
-        ActivityMonitor monitor = instrumentation.addMonitor(intentAction,
-                null, false);
+    @Override
+    public void startsWithIntentAction(String intentAction) {
+        ActivityMonitor monitor = instrumentation.addMonitor(intentAction, null, false);
 
         performPendingAction();
 
@@ -38,6 +37,6 @@ public class StoryTestActionAssertion extends ActionAssertion {
 
         Activity lastActivity = monitor.getLastActivity();
         getStoryTestCase().setCurrentActivity(lastActivity);
-		
-	}
+
+    }
 }

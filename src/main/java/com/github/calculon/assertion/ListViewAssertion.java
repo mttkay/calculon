@@ -23,6 +23,18 @@ public class ListViewAssertion extends ViewAssertion {
         this.listView = listView;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public ActionAssertion<ListViewAssertion> click() {
+        return (ActionAssertion<ListViewAssertion>) super.click();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public ActionAssertion<ListViewAssertion> longClick() {
+        return (ActionAssertion<ListViewAssertion>) super.longClick();
+    }
+
     public void hasItems() {
         assertFalse("list view expected not to be empty, but it was", getAdapter().isEmpty());
     }
@@ -58,8 +70,8 @@ public class ListViewAssertion extends ViewAssertion {
         return new MultiViewAssertion(testCase, activity, views);
     }
 
-    public ActionAssertion click(final int position) {
-        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
+    public ActionAssertion<?> click(final int position) {
+        return AssertionResolver.actionAssertion(this, testCase, activity, new Runnable() {
             public void run() {
                 View itemView = getAdapter().getView(position, null, listView);
                 assertNotNull("item view at position " + position + " was null", itemView);
@@ -68,11 +80,11 @@ public class ListViewAssertion extends ViewAssertion {
         }, true);
     }
 
-    public ActionAssertion clickFirst() {
+    public ActionAssertion<?> clickFirst() {
         return click(0);
     }
 
-    public ActionAssertion clickLast() {
+    public ActionAssertion<?> clickLast() {
         return click(getAdapter().getCount() - 1);
     }
 

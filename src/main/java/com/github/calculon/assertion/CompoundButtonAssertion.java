@@ -16,6 +16,18 @@ public class CompoundButtonAssertion extends ViewAssertion {
         this.compoundButton = compoundButton;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public ActionAssertion<CompoundButtonAssertion> click() {
+        return (ActionAssertion<CompoundButtonAssertion>) super.click();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public ActionAssertion<CompoundButtonAssertion> longClick() {
+        return (ActionAssertion<CompoundButtonAssertion>) super.longClick();
+    }
+
     public void checked() {
         assertTrue("expected view to be checked, but it wasn't", compoundButton.isChecked());
     }

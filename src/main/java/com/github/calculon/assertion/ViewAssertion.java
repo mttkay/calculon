@@ -16,22 +16,22 @@ public class ViewAssertion extends TargetedAssertion<View> {
 
     // ------------ ACTIONS -----------------------------------
 
-    public ActionAssertion click() {
+    public ActionAssertion<? extends ViewAssertion> click() {
         CalculonAssertions.assertViewNotNull(target);
         if (target.getLayoutParams() instanceof AbsListView.LayoutParams) {
             throw new IllegalStateException(
                     "use clickFirst(), clickLast(), and click(position) to click list items");
         }
-        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
+        return AssertionResolver.actionAssertion(this, testCase, activity, new Runnable() {
             public void run() {
                 target.performClick();
             }
         }, true);
     }
 
-    public ActionAssertion longClick() {
+    public ActionAssertion<? extends ViewAssertion> longClick() {
         CalculonAssertions.assertViewNotNull(target);
-        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
+        return AssertionResolver.actionAssertion(this, testCase, activity, new Runnable() {
             public void run() {
                 target.performLongClick();
             }

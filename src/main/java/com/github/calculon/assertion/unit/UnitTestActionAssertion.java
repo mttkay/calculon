@@ -8,11 +8,11 @@ import android.text.TextUtils;
 
 import com.github.calculon.assertion.ActionAssertion;
 
-public class UnitTestActionAssertion extends ActionAssertion {
+public class UnitTestActionAssertion<AssertionT> extends ActionAssertion<AssertionT> {
 
-    public UnitTestActionAssertion(InstrumentationTestCase testCase, Activity activity,
-            Runnable action, boolean runOnMainThread) {
-        super(testCase, activity, action, runOnMainThread);
+    public UnitTestActionAssertion(AssertionT fromAssertion, InstrumentationTestCase testCase,
+            Activity activity, Runnable action, boolean runOnMainThread) {
+        super(fromAssertion, testCase, activity, action, runOnMainThread);
     }
 
     @Override
@@ -30,17 +30,18 @@ public class UnitTestActionAssertion extends ActionAssertion {
         }
     }
 
-	@Override
-	public void startsWithIntentAction(String intentAction) {
-		performPendingAction();
-		
-		String activityIntentAction = getUnitTestCase().getStartedActivityIntent().getAction();
-		if (TextUtils.isEmpty(intentAction)) {
+    @Override
+    public void startsWithIntentAction(String intentAction) {
+        performPendingAction();
+
+        String activityIntentAction = getUnitTestCase().getStartedActivityIntent().getAction();
+        if (TextUtils.isEmpty(intentAction)) {
             Assert.fail(String.format(STARTED_INTENT_ACTION_FAIL_MSG, intentAction, "not"));
         } else {
-			if (!(intentAction.equals(activityIntentAction))) {
-			    Assert.fail(String.format(STARTED_INTENT_ACTION_FAIL_MSG, intentAction, activityIntentAction));
-			}
-		}
-	}
+            if (!(intentAction.equals(activityIntentAction))) {
+                Assert.fail(String.format(STARTED_INTENT_ACTION_FAIL_MSG, intentAction,
+                        activityIntentAction));
+            }
+        }
+    }
 }

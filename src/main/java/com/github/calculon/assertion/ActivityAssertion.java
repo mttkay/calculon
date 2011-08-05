@@ -20,8 +20,8 @@ public class ActivityAssertion extends TargetedAssertion<Activity> {
                 .getDefaultDisplay().getOrientation());
     }
 
-    public ActionAssertion keyPress(final int... keyCodes) {
-        return AssertionResolver.actionAssertion(testCase, activity, new Runnable() {
+    public ActionAssertion<ActivityAssertion> keyPress(final int... keyCodes) {
+        return AssertionResolver.actionAssertion(this, testCase, activity, new Runnable() {
             public void run() {
                 for (int code : keyCodes) {
                     instrumentation.sendKeyDownUpSync(code);

@@ -16,6 +16,18 @@ public class TextViewAssertion extends ViewAssertion {
         this.textView = textView;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public ActionAssertion<TextViewAssertion> click() {
+        return (ActionAssertion<TextViewAssertion>) super.click();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public ActionAssertion<TextViewAssertion> longClick() {
+        return (ActionAssertion<TextViewAssertion>) super.longClick();
+    }
+
     public void reads(String text) {
         assertEquals("text mismatch:", text, textView.getText());
     }

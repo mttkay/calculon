@@ -9,20 +9,28 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public abstract class ActionAssertion extends AssertionBase {
+public abstract class ActionAssertion<AssertionT> extends AssertionBase {
 
     protected static final String STARTED_ACTIVITY_FAIL_MSG = "Expected that %s was started, but was %s";
     protected static final String STARTED_INTENT_ACTION_FAIL_MSG = "Expected that intent action %s was passed, but was %s";
+
+    private AssertionT fromAssertion;
 
     private Runnable action;
 
     private boolean runOnMainThread;
 
-    public ActionAssertion(InstrumentationTestCase testCase, Activity activity, Runnable action,
-            boolean runOnMainThread) {
+    public ActionAssertion(AssertionT fromAssertion, InstrumentationTestCase testCase,
+            Activity activity, Runnable action, boolean runOnMainThread) {
         super(testCase, activity);
+        this.fromAssertion = fromAssertion;
         this.action = action;
         this.runOnMainThread = runOnMainThread;
+    }
+
+    public AssertionT impliesSelf() {
+        performPendingAction();
+        return fromAssertion;
     }
 
     public ViewAssertion implies(int otherViewId) {
@@ -51,10 +59,10 @@ public abstract class ActionAssertion extends AssertionBase {
     }
 
     /**
-     * Asserts whether an Activity of the given type has been started. <b>Note
-     * that you must never call this assertion more than once per test method,
-     * since the started Activity or the Intent used to start it will stick
-     * around and may yield false positives on subsequent invocations.</b>
+     * Asserts whether an Activity of the given type has been started. <b>Note that you must never
+     * call this assertion more than once per test method, since the started Activity or the Intent
+     * used to start it will stick around and may yield false positives on subsequent
+     * invocations.</b>
      * 
      * @param activityClass
      *            the class of the Activity expected to be started
@@ -62,10 +70,10 @@ public abstract class ActionAssertion extends AssertionBase {
     public abstract void starts(Class<? extends Activity> activityClass);
 
     /**
-     * Asserts whether an Intent with the given action has been passed. <b>Note
-     * that you must never call this assertion more than once per test method,
-     * since the started Activity or the Intent used to start it will stick
-     * around and may yield false positives on subsequent invocations.</b>
+     * Asserts whether an Intent with the given action has been passed. <b>Note that you must never
+     * call this assertion more than once per test method, since the started Activity or the Intent
+     * used to start it will stick around and may yield false positives on subsequent
+     * invocations.</b>
      * 
      * @param intentAction
      *            the Intent action of the Activity expected to be started
@@ -86,11 +94,11 @@ public abstract class ActionAssertion extends AssertionBase {
             }
             instrumentation.waitForIdleSync();
         }
-	}
+    }
 
-	public IntentAssertion assertThat(Intent startedActivityIntent) {
-		performPendingAction();
-		return new IntentAssertion(testCase, activity, startedActivityIntent);
-	}
+    public IntentAssertion assertThat(Intent startedActivityIntent) {
+        performPendingAction();
+        return new IntentAssertion(testCase, activity, startedActivityIntent);
+    }
 
 }
