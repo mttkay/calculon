@@ -46,7 +46,11 @@ public class CalculonAssertions {
     public static ListView list(int id) {
         return (ListView) getActivity().findViewById(id);
     }
-    
+
+    public static ListView list(int layoutId, int id) {
+        return (ListView) view(layoutId).findViewById(id);
+    }
+
     public static View emptyListView() {
     	return view(android.R.id.empty);
     }
@@ -55,20 +59,40 @@ public class CalculonAssertions {
         return (TextView) getActivity().findViewById(id);
     }
 
+    public static TextView text(int layoutId, int id) {
+        return (TextView) view(layoutId).findViewById(id);
+    }
+
     public static CheckBox checkBox(int id) {
         return (CheckBox) getActivity().findViewById(id);
+    }
+
+    public static CheckBox checkBox(int layoutId, int id) {
+        return (CheckBox) view(layoutId).findViewById(id);
     }
 
     public static ToggleButton toggleButton(int id) {
         return (ToggleButton) getActivity().findViewById(id);
     }
 
+    public static ToggleButton toggleButton(int layoutId, int id) {
+        return (ToggleButton) view(layoutId).findViewById(id);
+    }
+
     public static RadioButton radioButton(int id) {
         return (RadioButton) getActivity().findViewById(id);
     }
 
+    public static RadioButton radioButton(int layoutId, int id) {
+        return (RadioButton) view(layoutId).findViewById(id);
+    }
+
     public static ViewGroup parent(int id) {
         return (ViewGroup) getActivity().findViewById(id);
+    }
+
+    public static ViewGroup parent(int layoutId, int id) {
+        return (ViewGroup) view(layoutId).findViewById(id);
     }
 
     // -------- ASSERTIONS --------------------------------------------
