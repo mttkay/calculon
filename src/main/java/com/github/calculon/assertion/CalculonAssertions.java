@@ -3,15 +3,12 @@ package com.github.calculon.assertion;
 import static junit.framework.Assert.assertNotNull;
 import android.app.Activity;
 import android.content.Intent;
+import android.test.ActivityInstrumentationTestCase2;
+import android.test.ActivityTestCase;
 import android.test.InstrumentationTestCase;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.*;
 
 import com.github.calculon.CalculonTestCase;
 
@@ -127,6 +124,10 @@ public class CalculonAssertions {
 
     public static ListViewAssertion assertThat(ListView view) {
         return new ListViewAssertion(testCase, getActivity(), view);
+    }
+
+    public static ExpandableListViewAssertion assertThat(ExpandableListView view) {
+        return new ExpandableListViewAssertion(testCase, getActivity(), view);
     }
 
     public static TextViewAssertion assertThat(TextView view) {
