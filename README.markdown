@@ -1,4 +1,4 @@
-![Calculon](https://github.com/mttkay/calculon/blob/master/assets/calculon.png)
+![Calculon](https://raw.github.com/mttkay/calculon/master/assets/calculon.png)
 
 ## "Calculon never does two takes!"
 
